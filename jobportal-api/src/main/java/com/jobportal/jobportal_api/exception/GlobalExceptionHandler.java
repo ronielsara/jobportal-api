@@ -1,6 +1,6 @@
 package com.jobportal.jobportal_api.exception;
 
-import jakarta.persistence.EntityNotFoundException; // FIXED: Correct import
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -50,4 +50,5 @@ public class Application {
     public void setStatus(ApplicationStatus status) { this.status = status; }
 
     public LocalDateTime getAppliedAt() { return appliedAt; }
+    public void setAppliedAt(LocalDateTime appliedAt) {}
 }

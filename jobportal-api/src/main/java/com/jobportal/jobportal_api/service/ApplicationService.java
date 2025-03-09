@@ -48,16 +48,13 @@ public class ApplicationService {
         Application application = applicationRepository.findById(applicationId)
                 .orElseThrow(() -> new EntityNotFoundException("Application not found with id: " + applicationId));
 
-        // Check if the employer is the one who posted the job
         if (!application.getJob().getEmployer().getId().equals(employerId)) {
             throw new UnauthorizedAccessException("Only the employer who posted the job can update the status");
         }
 
-        // Update the status
         application.setStatus(newStatus);
         return applicationRepository.save(application);
     }
-
 
     public Application applyForJob(Long jobId, Long jobSeekerId) {
         Job job = jobRepository.findById(jobId)
@@ -89,4 +86,9 @@ public class ApplicationService {
 
         return applicationRepository.findAll(spec, pageable);
     }
+
+    public Application saveApplication(Application application) {
+        return applicationRepository.save(application);
+    }
+
 }

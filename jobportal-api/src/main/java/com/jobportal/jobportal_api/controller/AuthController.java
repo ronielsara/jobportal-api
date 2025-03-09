@@ -1,10 +1,12 @@
 package com.jobportal.jobportal_api.controller;
 
+import com.jobportal.jobportal_api.mapper.UserMapper;
 import com.jobportal.jobportal_api.model.dto.request.UserLoginRequest;
 import com.jobportal.jobportal_api.model.dto.request.UserRegistrationRequest;
 import com.jobportal.jobportal_api.model.entity.User;
 import com.jobportal.jobportal_api.repository.UserRepository;
 import com.jobportal.jobportal_api.security.JwtTokenProvider;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,16 +26,20 @@ public class AuthController {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,
                           JwtTokenProvider jwtTokenProvider,
                           UserRepository userRepository,
-                          PasswordEncoder passwordEncoder) {
+                          PasswordEncoder passwordEncoder, UserMapper userMapper) {
+
+
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     @PostMapping("/login")
@@ -55,16 +61,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserRegistrationRequest registrationRequest) {
+    public ResponseEntity<String> register(@Valid @RequestBody UserRegistrationRequest registrationRequest) {
         if (userRepository.findByEmail(registrationRequest.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("Error: Email is already in use!");
         }
-        User user = new User();
-        user.setName(registrationRequest.getName());
-        user.setEmail(registrationRequest.getEmail());
-        user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
-        user.setRole(registrationRequest.getRole());
+        User user = userMapper.toEntity(registrationRequest);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return ResponseEntity.ok("User registered successfully!");
     }
+
 }

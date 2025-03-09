@@ -41,24 +41,20 @@ public class ReviewService {
         return reviewRepository.findAll(spec, pageable);
     }
 
+
     public Review addReviewForJob(Long jobId, String comment, int rating, Long employerId) {
-        // Fetch the job
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new EntityNotFoundException("Job not found with id: " + jobId));
 
-        // Fetch the employer
         User employer = userRepository.findById(employerId)
                 .orElseThrow(() -> new EntityNotFoundException("Employer not found with id: " + employerId));
 
-        // Check if the employer is the one who posted the job
         if (!job.getEmployer().getId().equals(employerId)) {
             throw new UnauthorizedAccessException("Only the employer who posted the job can add a review");
         }
 
-        // Create a new review
         Review review = new Review(comment, rating, job, employer);
 
-        // Save and return the review
         return reviewRepository.save(review);
     }
 }

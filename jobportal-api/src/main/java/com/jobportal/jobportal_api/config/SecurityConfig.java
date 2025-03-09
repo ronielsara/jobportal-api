@@ -49,8 +49,8 @@ public class SecurityConfig {
                     auth.anyRequest().authenticated();
                 })
                 .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint(authenticationEntryPoint) // NEW ENTRY POINT FOR INVALID JWT
-                        .accessDeniedHandler(accessDeniedHandler) // HANDLER FOR FORBIDDEN REQUESTS (403)
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler)
                 )
                 .addFilterBefore(
                         new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService), // Pass UserDetailsService
@@ -60,13 +60,11 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // ✅ Add this to fix the PasswordEncoder error
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // ✅ Define AuthenticationProvider
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();

@@ -30,7 +30,5 @@ public class ReviewCreateRequest {
     public Long getJobId() { return jobId; }
     public String getComment() { return comment; }
     public int getRating() { return rating; }
-    public void setJobId(Long jobId) { this.jobId = jobId; }
-    public void setComment(String comment) { this.comment = comment; }
-    public void setRating(int rating) { this.rating = rating; }
+
 }

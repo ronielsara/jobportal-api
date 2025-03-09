@@ -2,6 +2,8 @@ package com.jobportal.jobportal_api.controller;
 
 import com.jobportal.jobportal_api.mapper.ApplicationMapper;
 import com.jobportal.jobportal_api.mapper.ReviewMapper;
+import com.jobportal.jobportal_api.mapper.UserMapper;
+import com.jobportal.jobportal_api.model.dto.request.ApplicationStatusUpdateRequest;
 import com.jobportal.jobportal_api.model.dto.request.JobCreateRequest;
 import com.jobportal.jobportal_api.model.dto.request.ReviewCreateRequest;
 import com.jobportal.jobportal_api.model.dto.response.JobResponse;
@@ -10,11 +12,13 @@ import com.jobportal.jobportal_api.model.dto.response.ReviewResponse;
 import com.jobportal.jobportal_api.model.entity.Job;
 import com.jobportal.jobportal_api.model.entity.Application;
 import com.jobportal.jobportal_api.model.entity.Review;
+import com.jobportal.jobportal_api.model.entity.User;
 import com.jobportal.jobportal_api.model.enums.ApplicationStatus;
 import com.jobportal.jobportal_api.service.JobService;
 import com.jobportal.jobportal_api.service.ApplicationService;
 import com.jobportal.jobportal_api.service.ReviewService;
-import com.jobportal.jobportal_api.mapper.JobMapper; // Import JobMapper
+import com.jobportal.jobportal_api.mapper.JobMapper;
+import com.jobportal.jobportal_api.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,25 +36,28 @@ public class EmployerController {
     private final JobMapper jobMapper; // Inject JobMapper
     private final ApplicationMapper applicationMapper;
     private final ReviewMapper reviewMapper;
+    private final UserService userService;
 
-    public EmployerController(JobService jobService, ApplicationService applicationService, ReviewService reviewService, JobMapper jobMapper, ApplicationMapper applicationMapper, ReviewMapper reviewMapper) {
+    public EmployerController(JobService jobService, ApplicationService applicationService, ReviewService reviewService, JobMapper jobMapper, ApplicationMapper applicationMapper, ReviewMapper reviewMapper,UserService userservice) {
         this.jobService = jobService;
         this.applicationService = applicationService;
         this.reviewService = reviewService;
         this.jobMapper = jobMapper;
         this.applicationMapper = applicationMapper;
         this.reviewMapper = reviewMapper;
+        this.userService = userservice;
     }
 
     @PostMapping("/post-job")
     public ResponseEntity<JobResponse> postJob(
             @Valid @RequestBody JobCreateRequest jobCreateRequest,
             @RequestParam Long employerId) {
-
-        Job job = jobMapper.toEntity(jobCreateRequest);
-        Job postedJob = jobService.postJob(job, employerId);
+        User employer = userService.getUserById(employerId);
+        Job job = jobMapper.toEntity(jobCreateRequest, employer);
+        Job postedJob = jobService.saveJob(job);
         return ResponseEntity.status(HttpStatus.CREATED).body(jobMapper.toResponse(postedJob));
     }
+
 
     @GetMapping("/jobs")
     public ResponseEntity<Page<JobResponse>> getJobsByEmployer(
@@ -80,9 +87,13 @@ public class EmployerController {
     @PutMapping("/applications/{applicationId}/status")
     public ResponseEntity<ApplicationResponse> updateApplicationStatus(
             @PathVariable Long applicationId,
-            @Valid @RequestParam ApplicationStatus status,
-            @RequestParam Long employerId) {
-        Application application = applicationService.updateApplicationStatus(applicationId, status, employerId);
+            @Valid @RequestBody ApplicationStatusUpdateRequest request) {
+
+        Application application = applicationService.updateApplicationStatus(
+                applicationId,
+                request.getStatus(),
+                request.getEmployerId()
+        );
         return ResponseEntity.ok(applicationMapper.toResponse(application));
     }
 

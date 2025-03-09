@@ -4,6 +4,7 @@ import com.jobportal.jobportal_api.model.entity.User;
 import com.jobportal.jobportal_api.model.enums.UserRole;
 import com.jobportal.jobportal_api.repository.UserRepository;
 import com.jobportal.jobportal_api.specification.UserSpecification;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -31,4 +32,9 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+    }
 }
+

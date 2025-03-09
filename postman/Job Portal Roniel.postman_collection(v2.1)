@@ -1,0 +1,874 @@
+{
+	"info": {
+		"_postman_id": "57fbd4cb-6014-4175-820e-4ee164eacf12",
+		"name": "Job Portal Roniel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29980233"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Admin User\",\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"securePassword\",\r\n  \"role\": \"ADMIN\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:6060/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Employer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Employer User\",\r\n  \"email\": \"employer@example.com\",\r\n  \"password\": \"securePassword\",\r\n  \"role\": \"EMPLOYER\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:6060/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register JobSeeker",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"JobSeeker User\",\r\n  \"email\": \"jobseeker@example.com\",\r\n  \"password\": \"securePassword\",\r\n  \"role\": \"JOBSEEKER\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:6060/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log In Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"securePassword\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:6060/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log In Employer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"employer@example.com\",\r\n  \"password\": \"securePassword\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:6060/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log In JobSeeker",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"jobseeker@example.com\",\r\n  \"password\": \"securePassword\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:6060/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "GetAllUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc0MTQ1OTc3NSwiZXhwIjoxNzQxNTQ2MTc1fQ.LdFwL3YzCxHq8abDtQr0AEqrxmvOXVftTz2gCUhhhvbGkRJBoeyYP4VkBtq4yyXy3lMLwuKFzXuXdz2-AAae_w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/admin/users?role=ADMIN&page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "ADMIN"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc0MTQ1OTc3NSwiZXhwIjoxNzQxNTQ2MTc1fQ.LdFwL3YzCxHq8abDtQr0AEqrxmvOXVftTz2gCUhhhvbGkRJBoeyYP4VkBtq4yyXy3lMLwuKFzXuXdz2-AAae_w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/admin/users/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"admin",
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employer",
+			"item": [
+				{
+					"name": "Post Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiRU1QTE9ZRVIiLCJzdWIiOiJlbXBsb3llckBlMnhhbXBsZS5jb20iLCJpYXQiOjE3NDE1NDY5MDEsImV4cCI6MTc0MTYzMzMwMX0.1TyVDQ9blAJUeg8-ui44Mqvjuy--ASK6xVb4R5FCg8C2-ok2u5Md6fDmUWy5sBHOdyogvICWTg6wwjpGVCK9JA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"software Engineer\",\r\n    \"description\": \"Develop and maintain web applications.\",\r\n    \"location\": \"New York\",\r\n    \"salary\": 85000.00\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:6060/api/employer/post-job?employerId=6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"employer",
+								"post-job"
+							],
+							"query": [
+								{
+									"key": "employerId",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllJobs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Employer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/employer/jobs?employerId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"employer",
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "employerId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllJobs FILTERED",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Employer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/employer/jobs?employerId=1&page=0&size=10&sort=title",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"employer",
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "employerId",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "title"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetApplicationsForJob",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "GetApplicationsForJob FILTERED",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateApplicationStatus",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Employer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/employer/applications/5/status?status=ACCEPTED&employerId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"employer",
+								"applications",
+								"5",
+								"status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ACCEPTED"
+								},
+								{
+									"key": "employerId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Review for Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Employer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"jobId\": 1,\r\n  \"comment\": \"Great candidate with strong technical skills!\",\r\n  \"rating\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:6060/api/employer/reviews/1?employerId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"employer",
+								"reviews",
+								"1"
+							],
+							"query": [
+								{
+									"key": "employerId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "JobSeeker",
+			"item": [
+				{
+					"name": "Post Resume",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Jobseeker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "jobSeekerId",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1effcd6c-a743-48f0-9d4c-0f71200fc289"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6060/api/jobseeker/upload-resume",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"jobseeker",
+								"upload-resume"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply for Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Jobseeker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/jobseeker/apply/1?jobSeekerId=8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"jobseeker",
+								"apply",
+								"1"
+							],
+							"query": [
+								{
+									"key": "jobSeekerId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Applications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Jobseeker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/jobseeker/applications?jobSeekerId=8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"jobseeker",
+								"applications"
+							],
+							"query": [
+								{
+									"key": "jobSeekerId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Applications FILTERED",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Jobseeker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/jobseeker/applications?jobSeekerId=8&title=Developer&status=PENDING&page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"jobseeker",
+								"applications"
+							],
+							"query": [
+								{
+									"key": "jobSeekerId",
+									"value": "8"
+								},
+								{
+									"key": "title",
+									"value": "Developer"
+								},
+								{
+									"key": "status",
+									"value": "PENDING"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Jobs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Jobseeker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/jobseeker/jobs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"jobseeker",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Jobs FILTERED",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Jobseeker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/jobseeker/jobs?employerId=3&title=Developer&location=New York",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"jobseeker",
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "employerId",
+									"value": "3"
+								},
+								{
+									"key": "title",
+									"value": "Developer"
+								},
+								{
+									"key": "location",
+									"value": "New York"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "Get Reviews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Employer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/review/reviews/1?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"review",
+								"reviews",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reviews FILTERED",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Employer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6060/api/review/reviews/5?rating=4&page=0&size=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"api",
+								"review",
+								"reviews",
+								"5"
+							],
+							"query": [
+								{
+									"key": "rating",
+									"value": "4"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "Employer",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiRU1QTE9ZRVIiLCJzdWIiOiJlbXBsb3llckBleGFtcGxlLmNvbSIsImlhdCI6MTc0MTQ1ODU4NSwiZXhwIjoxNzQxNTQ0OTg1fQ.Yn6BKEbnuC-FoF_DkvsLPW92-BlW9xxVOrsMi6g_h__jOmtVVysOCdgJb5bdAJVBV_cAzblH5kWcItCNEGCh1g",
+			"type": "default"
+		},
+		{
+			"key": "Jobseeker",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiSk9CX1NFRUtFUiIsInN1YiI6ImpvYnNlZWtlckBleGFtcGxlLmNvbSIsImlhdCI6MTc0MTUxODU4NiwiZXhwIjoxNzQxNjA0OTg2fQ.3b7UZVbhlA9yGTbonqKeHsVzNo_sxzyt4KXbRbtnE22HVv6YKRGLOZIJM60X2MyoJ3VLiCY6LQavQ2fr9rALaw",
+			"type": "default"
+		}
+	]
+}

@@ -64,5 +64,11 @@ public class JobService {
 
         return jobRepository.findAll(spec, pageable);
     }
-
+    public Job getJobById(Long jobId) {
+        return jobRepository.findById(jobId)
+                .orElseThrow(() -> new EntityNotFoundException("Job not found with id: " + jobId));
+    }
+    public Job saveJob(Job job) {
+        return jobRepository.save(job);
+    }
 }

@@ -2,14 +2,17 @@ package com.jobportal.jobportal_api.controller;
 
 import com.jobportal.jobportal_api.mapper.ApplicationMapper;
 import com.jobportal.jobportal_api.mapper.JobMapper;
+import com.jobportal.jobportal_api.model.dto.request.ApplicationCreateRequest;
 import com.jobportal.jobportal_api.model.dto.response.ApplicationResponse;
 import com.jobportal.jobportal_api.model.dto.response.JobResponse;
 import com.jobportal.jobportal_api.model.entity.Application;
 import com.jobportal.jobportal_api.model.entity.Job;
+import com.jobportal.jobportal_api.model.entity.User;
 import com.jobportal.jobportal_api.model.enums.ApplicationStatus;
 import com.jobportal.jobportal_api.service.ApplicationService;
 import com.jobportal.jobportal_api.service.JobService;
 import com.jobportal.jobportal_api.service.ResumeService;
+import com.jobportal.jobportal_api.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,13 +29,15 @@ public class JobSeekerController {
     private final ApplicationMapper applicationMapper;
     private final JobService jobService;
     private final JobMapper jobMapper;
+    private final UserService userService;
 
-    public JobSeekerController(ResumeService resumeService, ApplicationService applicationService, ApplicationMapper applicationMapper, JobService jobService, JobMapper jobMapper) {
+    public JobSeekerController(ResumeService resumeService, ApplicationService applicationService, ApplicationMapper applicationMapper, JobService jobService, JobMapper jobMapper,UserService userService) {
         this.resumeService = resumeService;
         this.applicationService = applicationService;
         this.applicationMapper = applicationMapper;
         this.jobService = jobService;
         this.jobMapper = jobMapper;
+        this.userService = userService;
     }
 
     @PostMapping("/upload-resume")
@@ -48,15 +53,16 @@ public class JobSeekerController {
         }
     }
 
-    @PostMapping("/apply/{jobId}")
+    @PostMapping("/apply")
     public ResponseEntity<ApplicationResponse> applyForJob(
-            @PathVariable Long jobId,
-            @Valid @RequestParam Long jobSeekerId) {
-
-        Application application = applicationService.applyForJob(jobId, jobSeekerId);
-
-        return ResponseEntity.status(201).body(applicationMapper.toResponse(application));
+            @Valid @RequestBody ApplicationCreateRequest request) {
+        Job job = jobService.getJobById(request.getJobId());
+        User jobSeeker = userService.getUserById(request.getJobSeekerId());
+        Application application = applicationMapper.toEntity(request, job, jobSeeker);
+        Application savedApplication = applicationService.saveApplication(application);
+        return ResponseEntity.status(201).body(applicationMapper.toResponse(savedApplication));
     }
+
 
     @GetMapping("/applications")
     public ResponseEntity<Page<ApplicationResponse>> getApplicationsByJobSeeker(
