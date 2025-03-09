@@ -81,5 +81,5 @@ Import the provided **Postman collection** and use the following steps:
 - Admins can manage all users.
 
 ## Author
-- Developed by **[Roniel Sara]**
+- Developed by **Roniel Sara**
 
