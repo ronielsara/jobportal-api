@@ -1,7 +1,7 @@
 # Job Portal API - README
 
 ## Overview
-The Job Portal API is a Spring Boot application that allows users to post jobs, apply for jobs, manage applications, and leave reviews. 
+The Job Portal API is a Spring Boot application that allows users to post jobs, apply for jobs, manage applications, and leave reviews.
 The application enforces role-based access control (RBAC) to ensure only authorized users can access certain features.
 
 ## Features
@@ -35,7 +35,7 @@ cd jobportal-api
 ```
 
 ### 2. Configure Database
-Create a MySQL database named `job_portal_db`. Update `application.properties` with your database credentials and your downloads path:
+Create a MySQL database named `job_portal_db`. Update `application.properties` with your database credentials:
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/job_portal_db
@@ -47,6 +47,8 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 
 resume.upload-dir=C:\Users\<YourUsername>\Downloads
 ```
+
+Update the `resume.upload-dir` path to a directory of your choice, such as your Downloads folder.
 
 ### 3. Build and Run the Project
 ```bash
@@ -61,7 +63,7 @@ mvn spring-boot:run
 - Employers, Job Seekers, and Admins have different access levels.
 
 ### 5. Testing with Postman
-Import the provided **Postman collection** and use the following steps:
+Import the provided **Postman collection** located in the `postman/` folder and use the following steps:
 1. **Register a user** (`/api/auth/register`).
 2. **Log in** (`/api/auth/login`) to get a token.
 3. **Use the token** for each request, depending on the role (Employer, Job Seeker, or Admin).
@@ -70,7 +72,7 @@ Import the provided **Postman collection** and use the following steps:
 - **Post a Job** (Employer Only): `POST /api/employer/post-job`
 - **Apply for a Job** (Job Seeker Only): `POST /api/jobseeker/apply`
 - **Update Application Status** (Employer Only): `PUT /api/employer/update-application`
-- **Get All Jobs** (Job Seeker Only): `GET /api/jobs`
+- **Get All Jobs** (Public): `GET /api/jobs`
 - **Add a Review** (Employer Only): `POST /api/review/add`
 
 ## Notes
